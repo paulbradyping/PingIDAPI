@@ -23,6 +23,13 @@ namespace PingIDAPI
             InitializeComponent();
         }
 
+        void setvars()
+        {
+            org_alias = textBox2.Text;
+            use_base64_key = textBox3.Text;
+            token = textBox4.Text;
+            api_version = textBox5.Text;
+        }
         // public static string org_alias = "<< org_alias value from pingid.properties file >>";
         // public static string use_base64_key = "<< use_base64_key value from pingid.properties file >>";
         // public static string token = "<< token value from pingid.properties file >>";
@@ -163,11 +170,7 @@ namespace PingIDAPI
 
                 if (textBox1.Text == "") throw new ApplicationException();
                 richTextBox1.Clear();
-                //org_alias = textBox2.Text;
-                //use_base64_key = textBox3.Text;
-                //token = textBox4.Text;
-                //api_version = textBox5.Text;
-
+          
                 Dictionary<string, object> reqBody = new Dictionary<string, object>();
                 reqBody.Add("userName", textBox1.Text);
                 reqBody.Add("getSameDeviceUsers", false);
@@ -205,10 +208,7 @@ namespace PingIDAPI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            org_alias = textBox2.Text;
-            use_base64_key = textBox3.Text;
-            token = textBox4.Text;
-            api_version = textBox5.Text;
+            setvars();
 
         }
 
@@ -219,10 +219,7 @@ namespace PingIDAPI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            org_alias = textBox2.Text;
-            use_base64_key = textBox3.Text;
-            token = textBox4.Text;
-            api_version = textBox5.Text;
+            setvars();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -230,7 +227,6 @@ namespace PingIDAPI
 
             try
             {
-            
            
             openFileDialog1.ShowDialog();
 
@@ -269,12 +265,17 @@ namespace PingIDAPI
             textBox3.Text = use_base64_key;
             textBox4.Text = token;
 
-            GetUserInfo.Enabled = true;
+
+                // enable form controls.
+
+                GetUserInfo.Enabled = true;
                 textBox1.Enabled = true;
                 btn_addDevice.Enabled = true;
                 groupBox2.Enabled = true;
                 groupBox3.Enabled = true;
-
+                btnAddUser.Enabled = true;
+                btnDeleteUser.Enabled = true;
+                richTextBox1.Enabled = true;
 
 
             }
@@ -288,26 +289,12 @@ namespace PingIDAPI
 
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
             try
             {
-
-
-
-
-                org_alias = textBox2.Text;
-                use_base64_key = textBox3.Text;
-                token = textBox4.Text;
-                api_version = textBox5.Text;
-
-
-
+                
                 // for the authenticate these are all the parameters needed in the request body
                 //
                 Dictionary<string, object> reqBody = new Dictionary<string, object>();
@@ -388,20 +375,17 @@ namespace PingIDAPI
 
                 // I am setting this in each control but you could do it one and reuse this.. again this is 
                 // just a sample 
-                org_alias = textBox2.Text;
-                use_base64_key = textBox3.Text;
-                token = textBox4.Text;
-                api_version = textBox5.Text;
+               
 
                 Dictionary<string, object> AuthreqBody = new Dictionary<string, object>();
 
-                // AuthreqBody.Add("userName", textBox1.Text);
-
+                
                 AuthreqBody.Add("spAlias", "web");
 
                 // set the device id to be used for
+                // dont do this for Offline... Just send the user name...
 
-                AuthreqBody.Add("deviceId", devicefound);
+              //  AuthreqBody.Add("deviceId", devicefound);
 
                 // the user name to send the auth to 
 
@@ -424,6 +408,8 @@ namespace PingIDAPI
                 AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.IndexOf(","));
 
                 AuthsessionId = AuthsessionId.Substring(AuthsessionId.IndexOf(":") + 2);
+
+                
 
                 AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.Length - 1);
 
@@ -453,10 +439,7 @@ namespace PingIDAPI
                 // deviceID
                 //"PayLoad: \n{\"responseBody\":{\"sameDeviceUsersDetails\":[],\"userDetails\":{\"lastTransactions\":[],\"devicesDetails\":[{\"nickname\":\"iPhone 5S\",\"sentNotClaimedSms\":-1,\"availableClaimedSms\":0,\"pushEnabled\":true,\"displayID\":\"iPhone 5S\",\"enrollment\":\"2016-03-28 14:39:26.217\",\"sentClaimedSms\":-1,\"availableNotClaimedSms\":0,\"deviceModel\":\"iPhone 5S\",\"countryCode\":null,\"deviceId\":187835,\"deviceUuid\":null,\"appVersion\":\"1.7(943)\",\"deviceRole\":\"PRIMARY\",\"hasWatch\":false,\"phoneNumber\":null,\"email\":null,\"osVersion\":\"9.3.5\",\"type\":\"iPhone\"}],\"picURL\":\"PHF5Q77RUYQDSNVXTB47JLJR2EEXSFQBTPTDFNMQHDCAJH3H6L5EDAI=\",\"spList\":[{\"spAlias\":\"pingone\",\"bypassExpiration\":null,\"spName\":\"SSO\",\"status\":\"ACTIVE\"},{\"spAlias\":\"vpn\",\"bypassExpiration\":null,\"spName\":\"VPN\",\"status\":\"ACTIVE\"}],\"lastLogin\":1474037590000,\"bypassExpiration\":null,\"deviceDetails\":{\"nickname\":\"iPhone 5S\",\"sentNotClaimedSms\":-1,\"availableClaimedSms\":0,\"pushEnabled\":true,\"displayID\":\"iPhone 5S\",\"enrollment\":\"2016-03-28 14:39:26.217\",\"sentClaimedSms\":-1,\"availableNotClaimedSms\":0,\"deviceModel\":\"iPhone 5S\",\"countryCode\":null,\"deviceId\":187835,\"deviceUuid\":null,\"appVersion\":\"1.7(943)\",\"deviceRole\":\"PRIMARY\",\"hasWatch\":false,\"phoneNumber\":null,\"email\":null,\"osVersion\":\"9.3.5\",\"type\":\"iPhone\"},\"userEnabled\":true,\"fname\":\"New\",\"userId\":6461158,\"userInBypass\":false,\"email\":\"paulbrady+newuser@pingidentity.com\",\"lname\":\"User\",\"status\":\"ACTIVE\",\"userName\":\"newuser\",\"role\":\"REGULAR\"},\"uniqueMsgId\":\"webs_26jtge4IpchTYiHqcYF8zsH6e0Bw3YDujZwpYxGBUt4\",\"errorId\":200,\"errorMsg\":\"ok\",\"clientData\":null}}"
 
-                org_alias = textBox2.Text;
-                use_base64_key = textBox3.Text;
-                token = textBox4.Text;
-                api_version = textBox5.Text;
+           
 
                 Dictionary<string, object> AuthOnlinereqBody = new Dictionary<string, object>();
 
@@ -535,10 +518,6 @@ namespace PingIDAPI
                 // deviceID
                 //"PayLoad: \n{\"responseBody\":{\"sameDeviceUsersDetails\":[],\"userDetails\":{\"lastTransactions\":[],\"devicesDetails\":[{\"nickname\":\"iPhone 5S\",\"sentNotClaimedSms\":-1,\"availableClaimedSms\":0,\"pushEnabled\":true,\"displayID\":\"iPhone 5S\",\"enrollment\":\"2016-03-28 14:39:26.217\",\"sentClaimedSms\":-1,\"availableNotClaimedSms\":0,\"deviceModel\":\"iPhone 5S\",\"countryCode\":null,\"deviceId\":187835,\"deviceUuid\":null,\"appVersion\":\"1.7(943)\",\"deviceRole\":\"PRIMARY\",\"hasWatch\":false,\"phoneNumber\":null,\"email\":null,\"osVersion\":\"9.3.5\",\"type\":\"iPhone\"}],\"picURL\":\"PHF5Q77RUYQDSNVXTB47JLJR2EEXSFQBTPTDFNMQHDCAJH3H6L5EDAI=\",\"spList\":[{\"spAlias\":\"pingone\",\"bypassExpiration\":null,\"spName\":\"SSO\",\"status\":\"ACTIVE\"},{\"spAlias\":\"vpn\",\"bypassExpiration\":null,\"spName\":\"VPN\",\"status\":\"ACTIVE\"}],\"lastLogin\":1474037590000,\"bypassExpiration\":null,\"deviceDetails\":{\"nickname\":\"iPhone 5S\",\"sentNotClaimedSms\":-1,\"availableClaimedSms\":0,\"pushEnabled\":true,\"displayID\":\"iPhone 5S\",\"enrollment\":\"2016-03-28 14:39:26.217\",\"sentClaimedSms\":-1,\"availableNotClaimedSms\":0,\"deviceModel\":\"iPhone 5S\",\"countryCode\":null,\"deviceId\":187835,\"deviceUuid\":null,\"appVersion\":\"1.7(943)\",\"deviceRole\":\"PRIMARY\",\"hasWatch\":false,\"phoneNumber\":null,\"email\":null,\"osVersion\":\"9.3.5\",\"type\":\"iPhone\"},\"userEnabled\":true,\"fname\":\"New\",\"userId\":6461158,\"userInBypass\":false,\"email\":\"paulbrady+newuser@pingidentity.com\",\"lname\":\"User\",\"status\":\"ACTIVE\",\"userName\":\"newuser\",\"role\":\"REGULAR\"},\"uniqueMsgId\":\"webs_26jtge4IpchTYiHqcYF8zsH6e0Bw3YDujZwpYxGBUt4\",\"errorId\":200,\"errorMsg\":\"ok\",\"clientData\":null}}"
 
-                org_alias = textBox2.Text;
-                use_base64_key = textBox3.Text;
-                token = textBox4.Text;
-                api_version = textBox5.Text;
 
                 Dictionary<string, object> AuthOfflinereqBody = new Dictionary<string, object>();
 
@@ -579,16 +558,6 @@ namespace PingIDAPI
                 string AuthresponsePayload = AuthresponseComponents[1];
                 string AuthresponsePayloadDecoded = Encoding.UTF8.GetString(Base64UrlDecodeString(AuthresponsePayload));
 
-                // get the session id out of the 1st auth response above. 
-
-
-                //AuthsessionId = AuthresponsePayloadDecoded.Substring(AuthresponsePayloadDecoded.IndexOf("sessionId", 10));
-
-                //AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.IndexOf(","));
-
-                //AuthsessionId = AuthsessionId.Substring(AuthsessionId.IndexOf(":") + 2);
-
-                //AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.Length - 1);
 
                 richTextBox1.Clear();
 
@@ -802,10 +771,7 @@ namespace PingIDAPI
 
             // I am setting this in each control but you could do it one and reuse this.. again this is 
             // just a sample 
-            org_alias = textBox2.Text;
-            use_base64_key = textBox3.Text;
-            token = textBox4.Text;
-            api_version = textBox5.Text;
+      
 
             Dictionary<string, object> AuthreqBody = new Dictionary<string, object>();
 
@@ -914,15 +880,14 @@ namespace PingIDAPI
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-   
+
             // this will add a user using the PingID API
+            //https://www.pingidentity.com/developer/en/api/pingid-api/user-management-api.html#AddUser
+
             try
             {
                 richTextBox1.Clear();
-                org_alias = textBox2.Text;
-                use_base64_key = textBox3.Text;
-                token = textBox4.Text;
-                api_version = textBox5.Text;
+               
 
                 Dictionary<string, object> reqBody = new Dictionary<string, object>();
 
@@ -982,6 +947,155 @@ namespace PingIDAPI
         private void button3_Click_2(object sender, EventArgs e)
         {
             panel4.Visible = true;
+
+        }
+
+        private void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            //https://www.pingidentity.com/developer/en/api/pingid-api/user-management-api.html#DeleteUser
+
+
+            //"reqBody": {
+            //    "userName": "jdoe",
+
+            if (textBox1.Text == "") throw new ApplicationException();
+            richTextBox1.Clear();
+
+            Dictionary<string, object> reqBody = new Dictionary<string, object>();
+
+            reqBody.Add("userName", textBox1.Text);
+           
+            var apiEndpoint = "https://idpxnyl3m.pingidentity.com/pingid/rest/4/deleteuser/do";
+
+            string apiResponse = sendToken(reqBody, apiEndpoint);
+
+            string[] responseComponents = apiResponse.Split(new char[] { '.' });
+
+            string responsePayload = responseComponents[1];
+
+            string responsePayloadDecoded = Encoding.UTF8.GetString(Base64UrlDecodeString(responsePayload));
+
+            //Dump the payload all of it into the richtext box just so you can see it. 
+      
+            richTextBox1.AppendText("PayLoad: " + "\n" + responsePayloadDecoded);
+
+        }
+
+        private void button3_Click_3(object sender, EventArgs e)
+        {
+            try
+            {
+
+                // for the authenticate these are all the parameters needed in the request body
+                //
+                Dictionary<string, object> reqBody = new Dictionary<string, object>();
+                
+                reqBody.Add("spAlias", "web");
+
+                // set the device id to be used for
+
+            //    reqBody.Add("deviceId", devicefound);
+
+                // the user name to send the auth to 
+
+                reqBody.Add("userName", textBox1.Text);
+
+                // reqBody.Add("sessionId", AuthsessionId);
+                
+                var apiEndpoint = "https://idpxnyl3m.pingidentity.com/pingid/rest/4/startauthentication/do";
+                
+                string apiResponse = sendToken(reqBody, apiEndpoint);
+
+                string[] responseComponents = apiResponse.Split(new char[] { '.' });
+
+                string responsePayload = responseComponents[1];
+
+                string responsePayloadDecoded = Encoding.UTF8.GetString(Base64UrlDecodeString(responsePayload));
+                
+                richTextBox1.Clear();
+
+                richTextBox1.Refresh();
+
+                richTextBox1.AppendText("PayLoad: " + "\n" + responsePayloadDecoded);
+
+                panel2.Visible = false;
+
+
+                // start of the second auth to deal with bug
+                //
+
+                // some string stuff this too could be done better. But for the demo it works. 
+
+               
+                string searchfor = richTextBox1.Text.ToString();
+
+                devicefound = searchfor.Substring(searchfor.IndexOf("deviceId", 10));
+                devicefound = devicefound.Substring(0, devicefound.IndexOf(","));
+                devicefound = devicefound.Substring(devicefound.IndexOf(":") + 1);
+
+
+                // I am setting this in each control but you could do it one and reuse this.. again this is 
+                // just a sample 
+
+
+                Dictionary<string, object> AuthreqBody = new Dictionary<string, object>();
+
+
+                AuthreqBody.Add("spAlias", "web");
+
+                // set the device id to be used for
+              
+
+                 AuthreqBody.Add("deviceId", devicefound);
+
+                // the user name to send the auth to 
+
+                AuthreqBody.Add("userName", textBox1.Text);
+
+                var AuthapiEndpoint = "https://idpxnyl3m.pingidentity.com/pingid/rest/4/startauthentication/do";
+
+                string AuthapiResponse = sendToken(AuthreqBody, AuthapiEndpoint);
+
+                string[] AuthresponseComponents = AuthapiResponse.Split(new char[] { '.' });
+
+                string AuthresponsePayload = AuthresponseComponents[1];
+                string AuthresponsePayloadDecoded = Encoding.UTF8.GetString(Base64UrlDecodeString(AuthresponsePayload));
+
+                // get the session id out of the 1st auth response above. 
+
+
+                AuthsessionId = AuthresponsePayloadDecoded.Substring(AuthresponsePayloadDecoded.IndexOf("sessionId", 10));
+
+                AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.IndexOf(","));
+
+                AuthsessionId = AuthsessionId.Substring(AuthsessionId.IndexOf(":") + 2);
+                
+                AuthsessionId = AuthsessionId.Substring(0, AuthsessionId.Length - 1);
+
+                richTextBox1.Clear();
+
+                richTextBox1.Refresh();
+
+                richTextBox1.AppendText("PayLoad: " + "\n" + AuthresponsePayloadDecoded);
+
+
+                // end of second auth
+
+                // enable the otp panel 
+
+
+                panel1.Visible = true;
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+
+            }
 
         }
     }

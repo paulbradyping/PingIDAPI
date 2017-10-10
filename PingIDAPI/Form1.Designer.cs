@@ -46,6 +46,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StartAuth1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.StartAuth2 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.AuthOffLine = new System.Windows.Forms.Button();
@@ -70,7 +71,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnAddUser = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.activateUserChk = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -82,7 +83,7 @@
             this.txbFname = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txbNewUsername = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -121,10 +122,11 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Enabled = false;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(209, 158);
+            this.richTextBox1.Location = new System.Drawing.Point(196, 158);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(733, 280);
+            this.richTextBox1.Size = new System.Drawing.Size(552, 280);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
@@ -201,7 +203,6 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(0, 13);
             this.label7.TabIndex = 13;
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // GetPropertiesFile
             // 
@@ -240,7 +241,7 @@
             this.StartAuth1.Location = new System.Drawing.Point(11, 31);
             this.StartAuth1.Margin = new System.Windows.Forms.Padding(2);
             this.StartAuth1.Name = "StartAuth1";
-            this.StartAuth1.Size = new System.Drawing.Size(250, 46);
+            this.StartAuth1.Size = new System.Drawing.Size(250, 34);
             this.StartAuth1.TabIndex = 18;
             this.StartAuth1.Text = "Start Authenticate Online";
             this.StartAuth1.UseVisualStyleBackColor = true;
@@ -249,6 +250,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.StartAuth2);
             this.groupBox2.Controls.Add(this.StartAuth1);
             this.groupBox2.Enabled = false;
@@ -261,14 +263,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Start Authentication";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(11, 135);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(250, 38);
+            this.button3.TabIndex = 20;
+            this.button3.Text = "Testing Start Auth";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_3);
+            // 
             // StartAuth2
             // 
-            this.StartAuth2.Location = new System.Drawing.Point(11, 104);
+            this.StartAuth2.Location = new System.Drawing.Point(11, 84);
             this.StartAuth2.Margin = new System.Windows.Forms.Padding(2);
             this.StartAuth2.Name = "StartAuth2";
-            this.StartAuth2.Size = new System.Drawing.Size(250, 47);
+            this.StartAuth2.Size = new System.Drawing.Size(250, 38);
             this.StartAuth2.TabIndex = 19;
-            this.StartAuth2.Text = "Start Authenticate Call (Gets a Session ID)";
+            this.StartAuth2.Text = "Start Authenticate For Offline Call (Gets a Session ID)";
             this.StartAuth2.UseVisualStyleBackColor = true;
             this.StartAuth2.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -314,7 +327,7 @@
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.textBox6);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(196, 189);
+            this.panel1.Location = new System.Drawing.Point(151, 273);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(255, 100);
@@ -450,7 +463,7 @@
             this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.textBox7);
-            this.panel3.Location = new System.Drawing.Point(196, 294);
+            this.panel3.Location = new System.Drawing.Point(218, 394);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(255, 100);
@@ -524,15 +537,16 @@
             this.textBox7.Size = new System.Drawing.Size(162, 20);
             this.textBox7.TabIndex = 0;
             // 
-            // button3
+            // btnAddUser
             // 
-            this.button3.Location = new System.Drawing.Point(28, 336);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(116, 45);
-            this.button3.TabIndex = 28;
-            this.button3.Text = "Add User";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_2);
+            this.btnAddUser.Enabled = false;
+            this.btnAddUser.Location = new System.Drawing.Point(28, 336);
+            this.btnAddUser.Name = "btnAddUser";
+            this.btnAddUser.Size = new System.Drawing.Size(116, 45);
+            this.btnAddUser.TabIndex = 28;
+            this.btnAddUser.Text = "Add User";
+            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnAddUser.Click += new System.EventHandler(this.button3_Click_2);
             // 
             // panel4
             // 
@@ -547,7 +561,7 @@
             this.panel4.Controls.Add(this.txbFname);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.txbNewUsername);
-            this.panel4.Location = new System.Drawing.Point(198, 119);
+            this.panel4.Location = new System.Drawing.Point(350, 119);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(190, 315);
             this.panel4.TabIndex = 29;
@@ -637,23 +651,25 @@
             this.txbNewUsername.Size = new System.Drawing.Size(155, 20);
             this.txbNewUsername.TabIndex = 0;
             // 
-            // button5
+            // btnDeleteUser
             // 
-            this.button5.Location = new System.Drawing.Point(28, 389);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(116, 45);
-            this.button5.TabIndex = 30;
-            this.button5.Text = "Delete User";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Enabled = false;
+            this.btnDeleteUser.Location = new System.Drawing.Point(28, 389);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(116, 45);
+            this.btnDeleteUser.TabIndex = 30;
+            this.btnDeleteUser.Text = "Delete User";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 454);
-            this.Controls.Add(this.button5);
+            this.ClientSize = new System.Drawing.Size(771, 670);
+            this.Controls.Add(this.btnDeleteUser);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btn_addDevice);
             this.Controls.Add(this.GetDevices);
@@ -730,7 +746,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.HelpProvider helpProvider1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label13;
@@ -742,7 +758,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txbNewUsername;
         private System.Windows.Forms.CheckBox activateUserChk;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnDeleteUser;
+        private System.Windows.Forms.Button button3;
     }
 }
 
